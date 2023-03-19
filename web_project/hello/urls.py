@@ -17,16 +17,10 @@ home_list_view = views.HomeListView.as_view(
 
 
 urlpatterns = [
-    path("", home_list_view, name="home"),
-    path("hello/<name>", views.hello_there, name="hello_there"),
-    path("about/", views.about, name="about"),
-    path("contact/", views.contact, name="contact"),
-    path("log/", views.log_message, name="log" ),
-    path("polls/", views.polls, name="polls"),
-    path("questions/", views.questions, name="questions"),
-    path('create/', views.create, name='create'),
-    path('results/', views.results, name='results'),
-    path('vote/', views.vote, name='vote'),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('log_message/', views.log_message, name='log_message'),
+    path('contact/', views.contact, name='contact'),
 ]
 
 if settings.DEBUG:
