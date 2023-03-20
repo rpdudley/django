@@ -14,11 +14,11 @@ from django.views.generic import DetailView
 from .models import Employee
 
 def home(request):
-    return render(request, "hello/home.html")
+    return render(request, "home.html")
 def about(request):
-    return render(request, "hello/about.html")
+    return render(request, "about.html")
 def contact(request):
-    return render(request, "hello/contact.html")
+    return render(request, "contact.html")
 def polls(request):
     return render(request,  "hello/polls.html")
 def questions(request):
@@ -66,7 +66,7 @@ def log_message(request):
             message.save()
             return redirect("home")
     else:
-        return render(request, "hello/log_message.html", {"form": form})
+        return render(request, "log_message.html", {"form": form})
 class EmployeeImage(TemplateView):
     form = EmployeeForm
     template_name = 'emp_image.html'

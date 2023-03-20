@@ -9,7 +9,7 @@ from django.conf.urls.static import static
 home_list_view = views.HomeListView.as_view(
     queryset=LogMessage.objects.order_by("-log_date")[:5],  # :5 limits the results to the five most recent
     context_object_name="message_list",
-    template_name="hello/home.html",
+    template_name="home.html",
 )
 
 

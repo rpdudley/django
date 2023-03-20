@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
-    <!-- Copy the <style> content from the home page to maintain consistency -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'hello/site.css' %}">
 </head>
 <body>
     <div class="container">
-        <!-- Update the href attributes in the navigation panel to point to the respective pages -->
+        
         <div class="nav">
-            <a href="home.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="log_message.html">log_message</a>
-            <a href="contact.html">Contact</a>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/log_message/">Messages</a>
+            <a href="/contact/">Contact</a>
         </div>
         
         <h1>About Us</h1>

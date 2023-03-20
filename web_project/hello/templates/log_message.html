@@ -1,11 +1,25 @@
-{% extends "hello/layout.html" %}
-{% block title %}
-    Log a message
-{% endblock %}
-{% block content %}
-    <form method="POST" class="log-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Log</button>
-    </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>log_message</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'hello/site.css' %}">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/log_message/">Messages</a>
+            <a href="/contact/">Contact</a>
+        </div>
+        
+        <h1>About Us</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.</p>
+    </div>
+</body>
+</html>
