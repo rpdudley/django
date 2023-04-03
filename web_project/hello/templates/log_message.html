@@ -18,8 +18,37 @@
             <a href="/contact/">Contact</a>
         </div>
         
-        <h1>About Us</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.</p>
+
+        <h1>Message Log</h1>
+        
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message.message }}</li>
+        {% endfor %}
+    </ul>
+        {% else %}
+    <p>No messages yet.</p>
+        
+    {% endif %}
+    {% block content %}
+    <h2>Add a Message</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
     </div>
-</body>
+    <div class="form-group">
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+    {% endblock %}
+
+        </div>
+        
+
+        </body>
 </html>

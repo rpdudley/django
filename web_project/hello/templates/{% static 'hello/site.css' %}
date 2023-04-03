@@ -28,10 +28,11 @@ h1 {
     color: #5e8cc0;
 }
 
-p {
+body,p {
     font-size: 1.2rem;
     margin-bottom: 20px;
     line-height: 1.5;
+    color: red;
 }
 
 a {

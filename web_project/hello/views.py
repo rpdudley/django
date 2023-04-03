@@ -1,9 +1,7 @@
 import re
 from django.shortcuts import redirect
-from hello.forms import LogMessageForm
-from hello.forms import LogMessage
 from django.utils.timezone import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .forms import CreatePollForm
 from django.http import HttpResponseRedirect
@@ -12,6 +10,9 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic import DetailView
 from .models import Employee
+from django.contrib import messages
+from .forms import LogMessageForm
+from .models import LogMessage
 
 def home(request):
     return render(request, "home.html")
@@ -57,16 +58,20 @@ def hello_there(request, name):
         }
     )
 def log_message(request):
-    form = LogMessageForm(request.POST or None)
-
     if request.method == "POST":
+        form = LogMessageForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
             message.log_date = datetime.now()
             message.save()
-            return redirect("home")
+            messages.success(request, "Message saved successfully!")
+            return redirect("log_message")
     else:
-        return render(request, "log_message.html", {"form": form})
+        form = LogMessageForm()
+
+    messages_list = LogMessage.objects.all().order_by("-log_date")
+    context = {"form": form, "messages": messages_list}
+    return render(request, "log_message.html", context)
 class EmployeeImage(TemplateView):
     form = EmployeeForm
     template_name = 'emp_image.html'
