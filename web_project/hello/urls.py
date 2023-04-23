@@ -22,6 +22,12 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('log_message/', views.log_message, name='log_message'),
     path('contact/', views.contact, name='contact'),
+    path('profile/edit/', views.profile_edit, name='profile_edit'),
+
+    path('signup/', views.signup, name='signup'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    path('profile/', views.profile, name='profile'),
 ]
 
 if settings.DEBUG:

@@ -1,18 +1,16 @@
 import re
-from django.shortcuts import redirect
-from django.utils.timezone import datetime
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
-from .forms import CreatePollForm
+from django.utils.timezone import datetime
+from django.views.generic import ListView, TemplateView, DetailView
 from django.http import HttpResponseRedirect
-from .forms import EmployeeForm
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView
-from django.views.generic import DetailView
-from .models import Employee
 from django.contrib import messages
-from .forms import LogMessageForm
-from .models import LogMessage
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
+from .forms import CreatePollForm, EmployeeForm, LogMessageForm, UserProfileForm
+from .models import Employee, LogMessage
+
 
 def home(request):
     return render(request, "home.html")
@@ -32,6 +30,16 @@ def create(request):
 
     context = {'form' : form}
     return render(request, 'hello/create.html', context)
+def profile_edit(request):
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated successfully!")
+            return redirect("profile")
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, "profile_edit.html", {"form": form})
 
 def results(request):
     context = {}
@@ -72,6 +80,37 @@ def log_message(request):
     messages_list = LogMessage.objects.all().order_by("-log_date")
     context = {"form": form, "messages": messages_list}
     return render(request, "log_message.html", context)
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
+def profile(request):
+    return render(request, 'profile.html')
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+def user_logout(request):
+    logout(request)
+    return redirect('home')
 class EmployeeImage(TemplateView):
     form = EmployeeForm
     template_name = 'emp_image.html'
@@ -87,21 +126,4 @@ class EmployeeImage(TemplateView):
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
 
-class EmpImageDisplay(DetailView):
-    model = Employee
-    template_name = 'emp_image_display.html'
-    context_object_name = 'emp'
-    #now = datetime.now()
-    #formatted_now = now.strftime("%A, %B %d, %Y at %X")
 
-    # Filter the name argument to letters only using regular expressions. URL arguments
-    # can contain arbitrary text, so we restrict to safe characters only.
-    #match_object = re.match("[a-zA-Z]+", name)
-
-    #if match_object:
-     #   clean_name = match_object.group(0)
-    #else:
-     #   clean_name = "Friend"
-
-    #content = "Hello there, " + clean_name + "! It's " + formatted_now
-    #return HttpResponse(content)

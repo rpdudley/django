@@ -3,6 +3,7 @@ from hello.models import LogMessage
 from django.forms import ModelForm
 from .models import Poll
 from .models import Employee
+from django.contrib.auth.models import User
 
 class LogMessageForm(forms.ModelForm):
     class Meta:
@@ -17,3 +18,7 @@ class EmployeeForm(forms.ModelForm):
     class Meta: 
         model = Employee 
         fields = ['name', 'emp_image']
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
