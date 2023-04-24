@@ -36,6 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'login'
 
 
 
@@ -44,6 +45,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'hello',
     'polls.apps.PollsConfig',
+    'rest_framework',
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -68,7 +70,7 @@ ROOT_URLCONF = 'web_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

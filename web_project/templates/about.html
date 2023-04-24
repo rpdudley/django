@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+    <h1>About Me</h1>
+
+    <p>To access the django api please use this: 
+        curl http://127.0.0.1:8000/api/log_messages/
+
+    </p>
+
+    <p>My name is Ryan and I'm am currently working towards Computer Science degree with a passion for outdoors, video games and building things. I started this website as a platform to share my experience about django.</p>
+
+    <h2>My Background</h2>
+    <p>I was born and raised in Michigan, and I've always been fascinated by website design and/or game design. After completing my education in Computer Science at Madonna Unverisity, I decided to pursue a career in software managment system. Throughout my journey, I've had the opportunity to work on a variety of projects and develop my skills in python, html and css</p>
+
+    <h2>My Interests</h2>
+    <p>When I'm not working on my professional projects, I enjoy spending time watching baseball, researching articles, or listening to politcal drama. I also love to travel and explore new places.</p>
+
+    <h2>Why I Created This Website</h2>
+    <p>I created this website as a way to share my passion and knowledge with others who are interested in Python django framework. Although this is my first application I am always willing to learn other frameworks or languages. I'm always open to feedback and suggestions for improvement. Feel free to reach out to me through the <a href="{% url 'contact' %}">Contact page</a></p>
+{% endblock %}
+

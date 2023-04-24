@@ -7,17 +7,20 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
+from .weather_api import get_weather
+from django.contrib.auth.decorators import login_required
 from .forms import CreatePollForm, EmployeeForm, LogMessageForm, UserProfileForm
 from .models import Employee, LogMessage
 
 
 def home(request):
-    return render(request, "home.html")
+    print("Serving home.html")
+    return render(request, 'home.html')
+
+@login_required
 def about(request):
-    return render(request, "about.html")
-def contact(request):
-    return render(request, "contact.html")
+    print("Serving about.html")
+    return render(request, 'about.html')
 def polls(request):
     return render(request,  "hello/polls.html")
 def questions(request):
@@ -93,6 +96,11 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+@login_required
+def contact(request):
+    city_name = 'New York'
+    weather_data = get_weather(city_name)
+    return render(request, 'contact.html', {'weather_data': weather_data})
 def profile(request):
     return render(request, 'profile.html')
 def user_login(request):

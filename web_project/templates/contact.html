@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+    <h1>Contact Me</h1>
+    <p>Please use the following information to get in touch with me.</p>
+    <p>Email: rdudley@my.madonna.edu</p>
+    <p>Phone: (123) 456-7890</p>
+
+
+    <h2>Weather for {{ weather_data.name }}</h2>
+    <p>Temperature: {{ weather_data.main.temp }}&deg;C</p>
+    {% with weather_data.weather|first as first_weather %}
+    <p>Weather: {{ first_weather.description }}</p>
+    {% endwith %}
+
+
+{% endblock %}
